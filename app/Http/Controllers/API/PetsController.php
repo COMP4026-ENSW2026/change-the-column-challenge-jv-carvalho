@@ -29,17 +29,17 @@ class PetsController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'specie' => 'required',
+            'especie' => 'required|max:30',
             'color' => 'required',
-            'size' => 'required|max:2',
+            'tamanho' => 'required|max:15',
         ]);
 
 
         $pet = Pet::create([
             'name' => $request['name'],
-            'specie' => $request['specie'],
+            'especie' => $request['especie'],
             'color' => $request['color'],
-            'size' => $request['size'],
+            'tamanho' => $request['tamanho'],
         ]);
 
         return $pet;
@@ -66,16 +66,16 @@ class PetsController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'specie' => 'required',
+            'especie' => 'required|max:30',
             'color' => 'required',
-            'size' => 'required|max:2',
+            'tamanho' => 'required|max:15',
         ]);
 
         $pet->update([
             'name' => $request['name'],
-            'specie' => $request['specie'],
+            'especie' => $request['especie'],
             'color' => $request['color'],
-            'size' => $request['size'],
+            'tamanho' => $request['tamanho'],
         ]);
 
         return $pet;
@@ -90,5 +90,79 @@ class PetsController extends Controller
     public function destroy(Pet $pet)
     {
         $pet->delete();
+    }
+
+    /**
+     * Altera valores antigos do campo especie do banco de dados para a nova forma.
+     *
+     * @return void
+     */
+    public function alteraValoresAntigosCampoEspecie()
+    {
+        $pets = Pet::whereIn('especie', ['bunny', 'dog', 'dragao de komodo', 'mamba'])->get();
+
+        foreach ($pets as $pet) {
+            switch ($pet->especie) {
+                case 'bunny':
+                    $pet->especie = 'Coelho';
+                    break;
+
+                case 'dog':
+                    $pet->especie = 'Cachorro';
+                    break;
+
+                case 'dragao de komodo':
+                    $pet->especie = 'Dragao de Komodo';
+                    break;
+
+                case 'mamba':
+                    $pet->especie = 'Mamba';
+                    break;
+
+                default:
+                    break;
+            }
+
+            $pet->save();
+        }
+    }
+
+    /**
+     * Altera valores antigos do campo tamanho do banco de dados para a nova forma.
+     *
+     * @return void
+     */
+    public function alteraValoresAntigosCampoTamanho()
+    {
+        $pets = Pet::whereIn('tamanho', ['xs', 'sm', 'm', 'l', 'xl', 'XS', 'SM', 'M', 'L', 'XL'])->get();
+
+        foreach ($pets as $pet) {
+            switch (strtolower($pet->tamanho)) {
+                case 'xs':
+                    $pet->tamanho = 'Extra pequeno';
+                    break;
+
+                case 'sm':
+                    $pet->tamanho = 'Pequeno';
+                    break;
+
+                case 'm':
+                    $pet->tamanho = 'Medio';
+                    break;
+
+                case 'l':
+                    $pet->tamanho = 'Grande';
+                    break;
+
+                case 'xl':
+                    $pet->tamanho = 'Extra grande';
+                    break;
+
+                default:
+                    break;
+            }
+
+            $pet->save();
+        }
     }
 }

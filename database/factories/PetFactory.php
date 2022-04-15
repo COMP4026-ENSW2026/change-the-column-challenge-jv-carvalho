@@ -15,9 +15,9 @@ class PetFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'specie' => $this->faker->word(),
+            'especie' => $this->faker->word(),
             'color' => $this->faker->word(),
-            'size' => $this->faker->word(),
+            'tamanho' => $this->faker->word(),
         ];
     }
 }

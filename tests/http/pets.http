@@ -8,9 +8,9 @@ Content-Type: application/json
 
 {
     "name": "Black white",
-    "specie": "mamba",
+    "especie": "Mamba",
     "color": "black",
-    "size": "SM"
+    "tamanho": "Pequeno"
 }
 
 
@@ -24,9 +24,9 @@ Content-Type: application/json
 
 {
     "name": "Neve",
-    "specie": "bunny",
+    "especie": "Coelho",
     "color": "white",
-    "size": "SM"
+    "tamanho": "Pequeno"
 }
 
 ###

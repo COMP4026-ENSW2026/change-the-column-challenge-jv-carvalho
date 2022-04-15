@@ -21,18 +21,18 @@ class PetsController extends Controller
     }
 
     public function store(Request $request){
-        // $request->validate([
-        //     'name' => 'required',
-        //     'specie' => 'required',
-        //     'color' => 'required',
-        //     'size' => 'required|max:2',
-        // ]);
+        $request->validate([
+            'name' => 'required',
+            'especie' => 'required|max:30',
+            'color' => 'required',
+            'tamanho' => 'required|max:15',
+         ]);
 
         $pet = Pet::create([
             'name' => $request['name'],
-            'specie' => $request['specie'],
+            'especie' => $request['especie'],
             'color' => $request['color'],
-            'size' => $request['size'],
+            'tamanho' => $request['tamanho'],
         ]);
 
         return view('pets.show', [
